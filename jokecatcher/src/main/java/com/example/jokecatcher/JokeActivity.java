@@ -1,5 +1,6 @@
 package com.example.jokecatcher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -11,17 +12,10 @@ public class JokeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
         //new JokeAsyncTask().execute();
-        //Intent intent = getIntent();
-        //String joke = intent.getStringExtra("JOKE");
-        JsyncTask jsyncTask = new JsyncTask(){
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                TextView jokeView = (TextView)findViewById(R.id.textView);
-                jokeView.setText(s);
-            }
-        };
-        jsyncTask.execute();
+        Intent intent = getIntent();
+        String joke = intent.getStringExtra("JOKE");
+        TextView jokeView = (TextView)findViewById(R.id.textView);
+        jokeView.setText(joke);
 
     }
 

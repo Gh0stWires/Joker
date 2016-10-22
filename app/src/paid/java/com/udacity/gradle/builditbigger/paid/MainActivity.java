@@ -8,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.jokecatcher.JokeActivity;
+import com.example.jokecatcher.JsyncTask;
 import com.udacity.gradle.builditbigger.R;
+
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -45,10 +48,21 @@ public class MainActivity extends ActionBarActivity {
     public void tellJoke(View view) {
         //Joker joke = new Joker();
         //String j = joke.getJQuote();
-        //Toast.makeText(this, j, Toast.LENGTH_SHORT).show();
+        JsyncTask jsyncTask = new JsyncTask();
+        String joke = null;
         Intent intent = new Intent(this, JokeActivity.class);
-        //intent.putExtra("JOKE", j);
+        //Toast.makeText(this, j, Toast.LENGTH_SHORT).show();
+        try {
+            joke = jsyncTask.execute().get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        intent.putExtra("JOKE",joke );
         startActivity(intent);
+
     }
 
 
