@@ -1,18 +1,8 @@
 package com.example.jokecatcher;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-
-import com.example.ghost.myapplication.backend.myApi.MyApi;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-
-import java.io.IOException;
 
 public class JokeActivity extends AppCompatActivity {
 
@@ -20,14 +10,23 @@ public class JokeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
-        new JokeAsyncTask().execute();
+        //new JokeAsyncTask().execute();
         //Intent intent = getIntent();
         //String joke = intent.getStringExtra("JOKE");
+        JsyncTask jsyncTask = new JsyncTask(){
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                TextView jokeView = (TextView)findViewById(R.id.textView);
+                jokeView.setText(s);
+            }
+        };
+        jsyncTask.execute();
 
     }
 
 
-    public class JokeAsyncTask extends AsyncTask<Void, Void, String>{
+    /*public class JokeAsyncTask extends AsyncTask<Void, Void, String>{
         private Context mContext;
         private MyApi mApi = null;
 
@@ -58,5 +57,5 @@ public class JokeActivity extends AppCompatActivity {
             TextView jokeView = (TextView)findViewById(R.id.textView);
             jokeView.setText(s);
         }
-    }
+    }*/
 }
