@@ -20,22 +20,22 @@ public class JokeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke);
-        new JokeAsyncTask().execute(this);
+        new JokeAsyncTask().execute();
         //Intent intent = getIntent();
         //String joke = intent.getStringExtra("JOKE");
 
     }
 
 
-    class JokeAsyncTask extends AsyncTask<Context, Void, String>{
+    public class JokeAsyncTask extends AsyncTask<Void, Void, String>{
         private Context mContext;
         private MyApi mApi = null;
 
         @Override
-        protected String doInBackground(Context... params) {
+        protected String doInBackground(Void... params) {
             if(mApi == null){
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("https://2-dot-joker-146400.appspot.com/_ah/api#p/myApi/v2/")
+                        .setRootUrl("https://2-dot-joker-146400.appspot.com/_ah/api")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
                             public void initialize(AbstractGoogleClientRequest<?> request) throws IOException {
@@ -44,7 +44,7 @@ public class JokeActivity extends AppCompatActivity {
                         });
                 mApi = builder.build();
             }
-            mContext = params[0];
+            //mContext = params[0];
             try {
                 return mApi.getJoke().execute().getData();
             } catch (IOException e) {
