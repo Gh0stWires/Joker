@@ -11,8 +11,6 @@ import com.example.jokecatcher.JokeActivity;
 import com.example.jokecatcher.JsyncTask;
 import com.udacity.gradle.builditbigger.R;
 
-import java.util.concurrent.ExecutionException;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -46,22 +44,18 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
-        //Joker joke = new Joker();
-        //String j = joke.getJQuote();
-        JsyncTask jsyncTask = new JsyncTask();
-        String joke = null;
-        Intent intent = new Intent(this, JokeActivity.class);
-        //Toast.makeText(this, j, Toast.LENGTH_SHORT).show();
-        try {
-            joke = jsyncTask.execute().get();
+        JsyncTask task = new JsyncTask(){
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                Intent intent = new Intent(getApplicationContext(), JokeActivity.class);
+                //Toast.makeText(this, j, Toast.LENGTH_SHORT).show();
+                intent.putExtra("JOKE",s );
+                startActivity(intent);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        intent.putExtra("JOKE",joke );
-        startActivity(intent);
+            }
+        };
+        task.execute();
 
     }
 
