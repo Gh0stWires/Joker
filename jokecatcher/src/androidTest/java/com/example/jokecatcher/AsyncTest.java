@@ -1,15 +1,14 @@
 package com.example.jokecatcher;
 
-import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Created by ghost on 10/21/2016.
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 public class AsyncTest {
 
     @Test

@@ -26,6 +26,10 @@ dependencies {
     compile 'com.google.appengine:appengine-endpoints:1.9.34'
     compile 'com.google.appengine:appengine-endpoints-deps:1.9.34'
     compile 'javax.servlet:servlet-api:2.5'
+    compile 'com.google.api-client:google-api-client:+'
+    compile 'com.google.api-client:google-api-client-android:+'
+    compile 'com.google.http-client:google-http-client:+'
+    compile 'com.google.http-client:google-http-client-android:+'
     compile project(path: ':joke-lib')
 }
 
@@ -36,6 +40,7 @@ appengine {
     }
     endpoints {
         getClientLibsOnBuild = true
+        googleClientVersion = '1.23.0'
         getDiscoveryDocsOnBuild = true
     }
 }
